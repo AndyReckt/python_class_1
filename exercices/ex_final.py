@@ -32,7 +32,7 @@ starters = (
 
 def choose_difficulty():  # function that lets u choose the difficulty of the game
     while True:
-        diff = input("Choose ur difficulty: (0 for easy, 1 for hard, 2 for challenge) ")
+        diff = input("Choose ur difficulty: (0 for easy (5 turns), 1 for hard (12 turns), 2 for challenge (20 turns)) ")
         if diff.lower() == '0' or diff.lower() == "easy" or diff.lower() == "e":
             return 0
         elif diff.lower() == '1' or diff.lower() == "hard" or diff.lower() == "h":
@@ -68,7 +68,7 @@ def custom_name(pk):  # function that lets u choose a custom name for your pokem
             print("Sorry but i cant understand this value...")
 
 
-def encounter_pokemon(pokemon, round):
+def encounter_pokemon(pokemon, round):  # function that manage the encounter with a wild pokemon
     wild = pkms[random.randint(0, len(pkms) - 1)]
     print(f"You encountered a {wild['name']}")
 
@@ -101,7 +101,7 @@ def encounter_pokemon(pokemon, round):
         print(f"{pokemon['name']} now has {pokemon['life']} life points.")
 
 
-def left_right():
+def left_right():  # useless function that ask for a fictive door
     r = input("Which door do you want to open? (left/right)")
     while True:
         if r.lower() == 'l' or r.lower() == 'left' or r.lower() == 'g' or r.lower() == 'gauche':
@@ -126,12 +126,17 @@ def game(diff, pokemon):  # the main game function, that will run the game
         i += 1
         left_right()
         encounter_pokemon(pokemon, i)
+    print("You finally found the exit and you are free!")  # again, random lore
     sys.exit(f"Wow, you won!! {pokemon['name']} had {pokemon['life']} life points left. Congrats!!")
 
 
 difficulty = choose_difficulty()  # choosing difficulty
 starter = chose_starter()  # choosing starter
 starter['name'] = custom_name(starter.get("name"))   # choosing starter name
-starter['ran'] = False
+starter['ran'] = False  # adding a ran value for the running system
+
+# random lore
+print("You wake up in a big mansion filled with wild pokemons, and you dont remember anything...")
+print("Maybe if you go through the doors you will find the exit?")
 
 game(difficulty, starter)  # starting the game
